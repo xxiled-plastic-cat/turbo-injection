@@ -20,20 +20,14 @@ network:
   dictionary: 'https://api.subquery.network/sq/subquery/Algorand-Dictionary'
 dataSources:
   - kind: algorand/Runtime
-    startBlock: 50000
+    startBlock: 8712119 #Block that planet was created on https://algoexplorer.io/tx/G66KX3TLKXUI547DFB4MNVY7SJVADOJKGP4SWMRC632GFHSFX5KQ
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: handleBlock
-          kind: algorand/BlockHandler
         - handler: handleTransaction
           kind: algorand/TransactionHandler
           filter:
-            txType: pay
-            sender: ZW3ISEHZUHPO7OZGMKLKIIMKVICOUDRCERI454I3DB2BH52HGLSO67W754
-            receiver: ZW3ISEHZUHPO7OZGMKLKIIMKVICOUDRCERI454I3DB2BH52HGLSO67W754
-        - handler: handleTransaction
-          kind: algorand/TransactionHandler
-          filter:
-            txType: acfg
-            applicationId: 1
+            # Payments from the Planet Watch Address for the PLANET asset
+            txType: axfer
+            assetId: 27165954
+            sender: "ZW3ISEHZUHPO7OZGMKLKIIMKVICOUDRCERI454I3DB2BH52HGLSO67W754"
