@@ -1,0 +1,39 @@
+specVersion: 1.0.0
+name: algorand-subql-starter
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node-algorand'
+    version: '>=1.0.0'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: >-
+  This project can be used as a starting point for developing your Algorand
+  SubQuery project
+repository: 'https://github.com/subquery/algorand-subql-starter'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: wGHE2Pwdvd7S12BL5FaOP20EGYesN73ktiC1qzkkit8=
+  endpoint: 'https://algoindexer.algoexplorerapi.io'
+  dictionary: 'https://api.subquery.network/sq/subquery/Algorand-Dictionary'
+dataSources:
+  - kind: algorand/Runtime
+    startBlock: 50000
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: algorand/BlockHandler
+        - handler: handleTransaction
+          kind: algorand/TransactionHandler
+          filter:
+            txType: pay
+            sender: ZW3ISEHZUHPO7OZGMKLKIIMKVICOUDRCERI454I3DB2BH52HGLSO67W754
+            receiver: ZW3ISEHZUHPO7OZGMKLKIIMKVICOUDRCERI454I3DB2BH52HGLSO67W754
+        - handler: handleTransaction
+          kind: algorand/TransactionHandler
+          filter:
+            txType: acfg
+            applicationId: 1
